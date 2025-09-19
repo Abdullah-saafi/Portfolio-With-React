@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+
+@theme{
+  --p-color: #cf1f1f;
+  --s-color: #ae1f20;
+  --half-white: rgba(255, 255, 255, 0.661);
+}
