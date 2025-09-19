@@ -1,41 +1,60 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
+
+interface QuizQuestion {
+  id: number;
+  question: string;
+  answers: string[];
+  correctAnswer: string;
+  selectedAnswer: string | null;
+}
+
+interface ApiResponse {
+  response_code: number;
+  results: {
+    question: string;
+    correct_answer: string;
+    incorrect_answers: string[];
+  }[];
+}
 
 const QuizApp = () => {
-  const [quizData, setQuizData] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(15);
-  const [quizStarted, setQuizStarted] = useState(false);
-  const [quizFinished, setQuizFinished] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [quizData, setQuizData] = useState<QuizQuestion[]>([]);
+  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [score, setScore] = useState<number>(0);
+  const [timeLeft, setTimeLeft] = useState<number>(15);
+  const [quizStarted, setQuizStarted] = useState<boolean>(false);
+  const [quizFinished, setQuizFinished] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const fetchQuizQuestions = async () => {
+  const fetchQuizQuestions = async (): Promise<void> => {
     setLoading(true);
     setError(null);
     try {
       const response = await fetch(
         "https://opentdb.com/api.php?amount=5&type=multiple"
       );
-      const data = await response.json();
+      const data: ApiResponse = await response.json();
 
       if (data.response_code === 0) {
-        const processedData = data.results.map((question, index) => {
-          const allAnswers = [
-            ...question.incorrect_answers,
-            question.correct_answer,
-          ];
-          const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5);
+        const processedData: QuizQuestion[] = data.results.map(
+          (question, index) => {
+            const allAnswers = [
+              ...question.incorrect_answers,
+              question.correct_answer,
+            ];
+            const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5);
 
-          return {
-            id: index,
-            question: question.question,
-            answers: shuffledAnswers,
-            correctAnswer: question.correct_answer,
-            selectedAnswer: null,
-          };
-        });
+            return {
+              id: index,
+              question: question.question,
+              answers: shuffledAnswers,
+              correctAnswer: question.correct_answer,
+              selectedAnswer: null,
+            };
+          }
+        );
 
         setQuizData(processedData);
       } else {
@@ -50,13 +69,13 @@ const QuizApp = () => {
     }
   };
 
-  const startQuiz = () => {
+  const startQuiz = (): void => {
     fetchQuizQuestions();
     setQuizStarted(true);
     setTimeLeft(15);
   };
 
-  const handleAnswerSelect = (answer) => {
+  const handleAnswerSelect = (answer: string): void => {
     if (selectedAnswer !== null) return;
 
     setSelectedAnswer(answer);
@@ -70,7 +89,7 @@ const QuizApp = () => {
     setQuizData(updatedQuizData);
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = (): void => {
     if (currentQuestion < quizData.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
@@ -95,7 +114,7 @@ const QuizApp = () => {
     return () => clearInterval(timer);
   }, [timeLeft, quizStarted, quizFinished]);
 
-  const restartQuiz = () => {
+  const restartQuiz = (): void => {
     setQuizData([]);
     setCurrentQuestion(0);
     setSelectedAnswer(null);
@@ -105,7 +124,7 @@ const QuizApp = () => {
     setQuizFinished(false);
   };
 
-  const decodeHtml = (html) => {
+  const decodeHtml = (html: string): string => {
     const txt = document.createElement("textarea");
     txt.innerHTML = html;
     return txt.value;

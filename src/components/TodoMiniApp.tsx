@@ -1,17 +1,24 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
 const TodoApp = () => {
-  const [todos, setTodos] = useState([
+  const [todos, setTodos] = useState<Todo[]>([
     { id: 1, text: "Go to Baitussalam", completed: false },
     { id: 2, text: "Preparetions of react exams", completed: true },
   ]);
-  const [newTask, setNewTask] = useState("");
-  const [editingId, setEditingId] = useState(null);
+  const [newTask, setNewTask] = useState<string>("");
+  const [editingId, setEditingId] = useState<number | null>(null);
 
-  const handleNewTask = (e) => {
+  const handleNewTask = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTask(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!newTask.trim()) {
@@ -27,7 +34,7 @@ const TodoApp = () => {
       );
       setEditingId(null);
     } else {
-      const newTodo = {
+      const newTodo: Todo = {
         id: Date.now(),
         text: newTask,
         completed: false,
@@ -38,12 +45,12 @@ const TodoApp = () => {
     setNewTask("");
   };
 
-  const handleDeleteTodo = (id) => {
+  const handleDeleteTodo = (id: number) => {
     const updatedTodos = todos.filter((todo) => todo.id !== id);
     setTodos(updatedTodos);
   };
 
-  const handleToggleComplete = (id) => {
+  const handleToggleComplete = (id: number) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -51,7 +58,7 @@ const TodoApp = () => {
     );
   };
 
-  const handleEditTodo = (todo) => {
+  const handleEditTodo = (todo: Todo) => {
     setEditingId(todo.id);
     setNewTask(todo.text);
   };

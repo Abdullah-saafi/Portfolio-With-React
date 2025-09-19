@@ -1,43 +1,73 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  zipCode: string;
+  newsletter: boolean;
+  notifications: boolean;
+  communicationPref: string;
+  interests: string[];
+}
+
+interface Errors {
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  zipCode?: string;
+  [key: string]: string | undefined;
+}
+
+interface Step {
+  id: number;
+  title: string;
+}
+
+interface StepProps {
+  formData: FormData;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  errors?: Errors;
+}
 
 const MultiStepForm = () => {
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    // Step 1: Personal Info
+  const [step, setStep] = useState<number>(1);
+  const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
     dateOfBirth: "",
-
-    // Step 2: Contact Details
     email: "",
     phone: "",
     address: "",
     city: "",
     zipCode: "",
-
-    // Step 3: Preferences
     newsletter: false,
     notifications: true,
     communicationPref: "email",
     interests: [],
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Errors>({});
 
-  // Steps configuration
-  const steps = [
+  const steps: Step[] = [
     { id: 1, title: "Personal Info" },
     { id: 2, title: "Contact Details" },
     { id: 3, title: "Preferences" },
     { id: 4, title: "Confirmation" },
   ];
 
-  // Handle input changes
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value, type, checked } = e.target;
 
     if (type === "checkbox" && name === "interests") {
-      // Handle interests checkboxes
       const updatedInterests = checked
         ? [...formData.interests, value]
         : formData.interests.filter((interest) => interest !== value);
@@ -53,18 +83,15 @@ const MultiStepForm = () => {
       });
     }
 
-    // Clear error when field is updated
     if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: "",
-      });
+      const newErrors = { ...errors };
+      delete newErrors[name];
+      setErrors(newErrors);
     }
   };
 
-  // Validate current step
-  const validateStep = () => {
-    const newErrors = {};
+  const validateStep = (): boolean => {
+    const newErrors: Errors = {};
 
     if (step === 1) {
       if (!formData.firstName.trim())
@@ -90,27 +117,23 @@ const MultiStepForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Navigate to next step
-  const nextStep = () => {
+  const nextStep = (): void => {
     if (validateStep()) {
       setStep(step + 1);
     }
   };
 
-  // Navigate to previous step
-  const prevStep = () => {
+  const prevStep = (): void => {
     setStep(step - 1);
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    setStep(4); // Show confirmation
+    setStep(4);
   };
 
-  // Render the appropriate step
-  const renderStep = () => {
+  const renderStep = (): JSX.Element => {
     switch (step) {
       case 1:
         return (
@@ -149,10 +172,8 @@ const MultiStepForm = () => {
         Multi-Step Form
       </h1>
 
-      {/* Progress Stepper */}
       <div className="mb-10">
         <div className="flex justify-between relative">
-          {/* Progress line */}
           <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -translate-y-1/2 z-0"></div>
 
           {steps.map((stepItem, index) => (
@@ -199,11 +220,9 @@ const MultiStepForm = () => {
         </div>
       </div>
 
-      {/* Form Content */}
       <form onSubmit={handleSubmit} className="px-4">
         {renderStep()}
 
-        {/* Navigation Buttons */}
         <div className="flex justify-between mt-8">
           {step > 1 && step < 4 && (
             <button
@@ -249,8 +268,7 @@ const MultiStepForm = () => {
   );
 };
 
-// Step 1: Personal Info
-const PersonalInfo = ({ formData, handleChange, errors }) => {
+const PersonalInfo = ({ formData, handleChange, errors }: StepProps) => {
   return (
     <div className="text-black">
       <h2 className="text-2xl font-semibold mb-6">Personal Information</h2>
@@ -267,12 +285,12 @@ const PersonalInfo = ({ formData, handleChange, errors }) => {
             value={formData.firstName}
             onChange={handleChange}
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-              errors.firstName
+              errors?.firstName
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
             }`}
           />
-          {errors.firstName && (
+          {errors?.firstName && (
             <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
           )}
         </div>
@@ -288,12 +306,12 @@ const PersonalInfo = ({ formData, handleChange, errors }) => {
             value={formData.lastName}
             onChange={handleChange}
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-              errors.lastName
+              errors?.lastName
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
             }`}
           />
-          {errors.lastName && (
+          {errors?.lastName && (
             <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
           )}
         </div>
@@ -309,12 +327,12 @@ const PersonalInfo = ({ formData, handleChange, errors }) => {
             value={formData.dateOfBirth}
             onChange={handleChange}
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-              errors.dateOfBirth
+              errors?.dateOfBirth
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
             }`}
           />
-          {errors.dateOfBirth && (
+          {errors?.dateOfBirth && (
             <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth}</p>
           )}
         </div>
@@ -323,8 +341,7 @@ const PersonalInfo = ({ formData, handleChange, errors }) => {
   );
 };
 
-// Step 2: Contact Details
-const ContactDetails = ({ formData, handleChange, errors }) => {
+const ContactDetails = ({ formData, handleChange, errors }: StepProps) => {
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-6">Contact Details</h2>
@@ -341,12 +358,12 @@ const ContactDetails = ({ formData, handleChange, errors }) => {
             value={formData.email}
             onChange={handleChange}
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-              errors.email
+              errors?.email
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
             }`}
           />
-          {errors.email && (
+          {errors?.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email}</p>
           )}
         </div>
@@ -362,12 +379,12 @@ const ContactDetails = ({ formData, handleChange, errors }) => {
             value={formData.phone}
             onChange={handleChange}
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-              errors.phone
+              errors?.phone
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
             }`}
           />
-          {errors.phone && (
+          {errors?.phone && (
             <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
           )}
         </div>
@@ -383,12 +400,12 @@ const ContactDetails = ({ formData, handleChange, errors }) => {
             value={formData.address}
             onChange={handleChange}
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-              errors.address
+              errors?.address
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
             }`}
           />
-          {errors.address && (
+          {errors?.address && (
             <p className="text-red-500 text-sm mt-1">{errors.address}</p>
           )}
         </div>
@@ -404,12 +421,12 @@ const ContactDetails = ({ formData, handleChange, errors }) => {
             value={formData.city}
             onChange={handleChange}
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-              errors.city
+              errors?.city
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
             }`}
           />
-          {errors.city && (
+          {errors?.city && (
             <p className="text-red-500 text-sm mt-1">{errors.city}</p>
           )}
         </div>
@@ -425,12 +442,12 @@ const ContactDetails = ({ formData, handleChange, errors }) => {
             value={formData.zipCode}
             onChange={handleChange}
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-              errors.zipCode
+              errors?.zipCode
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
             }`}
           />
-          {errors.zipCode && (
+          {errors?.zipCode && (
             <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>
           )}
         </div>
@@ -439,8 +456,7 @@ const ContactDetails = ({ formData, handleChange, errors }) => {
   );
 };
 
-// Step 3: Preferences
-const Preferences = ({ formData, handleChange }) => {
+const Preferences = ({ formData, handleChange }: StepProps) => {
   const interests = [
     "Technology",
     "Sports",
@@ -527,8 +543,7 @@ const Preferences = ({ formData, handleChange }) => {
   );
 };
 
-// Step 4: Confirmation
-const Confirmation = ({ formData }) => {
+const Confirmation = ({ formData }: { formData: FormData }) => {
   return (
     <div className="mt-20">
       <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 text-black">
