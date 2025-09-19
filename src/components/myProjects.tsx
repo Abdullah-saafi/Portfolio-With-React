@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const MyProjects = function () {
   return (
     <>
@@ -16,42 +18,52 @@ const MyProjects = function () {
         </h1>
         <div className="portfolio-cards grid lg:grid-cols-3 md:grid-cols-2 gap-20">
           <div className="square-card">
-            <div className="card-img h-88 rounded-xl blur-[2px] grayscale transition-all duration-1000 ease-in-out scale-110 mb-6 overflow-hidden border border-white hover:blur-[0px] hover:grayscale-0 hover:scale-100">
-              <img
-                src="img/single-page-website.jpg"
-                alt="website img"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <Link to="/Todopage" className="square-card block">
+              <div className="card-img h-88 rounded-xl blur-[2px] grayscale transition-all duration-1000 ease-in-out scale-110 mb-6 overflow-hidden border border-white hover:blur-[0px] hover:grayscale-0 hover:scale-100">
+                <img
+                  src="img/single-page-website.jpg"
+                  alt="website img"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="card-text">
+                <h6 className="text-2xl font-bold">
+                  TODO APP <br /> Mini project 01
+                </h6>
+              </div>
+            </Link>
+          </div>
+          <div className="square-card">
+            <Link to="/QuizApp" className="square-card block">
+              <div className="card-img card-img h-88 rounded-xl blur-[2px] grayscale transition-all duration-1000 ease-in-out scale-110 mb-6 overflow-hidden border border-white hover:blur-[0px] hover:grayscale-0 hover:scale-100">
+                <img
+                  src="img/multi-img-website.jpg"
+                  alt="website img"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </Link>
             <div className="card-text">
               <h6 className="text-2xl font-bold">
-                TODO APP <br /> Mini Project 01
+                Quiz App <br /> Mini Project 02
               </h6>
             </div>
           </div>
           <div className="square-card">
-            <div className="card-img card-img h-88 rounded-xl blur-[2px] grayscale transition-all duration-1000 ease-in-out scale-110 mb-6 overflow-hidden border border-white hover:blur-[0px] hover:grayscale-0 hover:scale-100">
-              <img
-                src="img/multi-img-website.jpg"
-                alt="website img"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="card-text">
-              <h6 className="text-2xl font-bold">Multi Pages Website</h6>
-            </div>
-          </div>
-          <div className="square-card">
-            <div className="card-img card-img h-88 rounded-xl blur-[2px] grayscale transition-all duration-1000 ease-in-out scale-110 mb-6 overflow-hidden border border-white hover:blur-[0px] hover:grayscale-0 hover:scale-100">
-              <img
-                src="img/reposive-img.png"
-                alt="website img"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="card-text">
-              <h6 className="text-2xl font-bold">Responsive Website</h6>
-            </div>
+            <Link to="/MultiStepForm " className="square-card block">
+              <div className="card-img card-img h-88 rounded-xl blur-[2px] grayscale transition-all duration-1000 ease-in-out scale-110 mb-6 overflow-hidden border border-white hover:blur-[0px] hover:grayscale-0 hover:scale-100">
+                <img
+                  src="img/reposive-img.png"
+                  alt="website img"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="card-text">
+                <h6 className="text-2xl font-bold">
+                  Multi Step Page <br /> Mini Project 03
+                </h6>
+              </div>
+            </Link>
           </div>
           <div className="square-card">
             <div className="card-img card-img h-88 rounded-xl blur-[2px] grayscale transition-all duration-1000 ease-in-out scale-110 mb-6 overflow-hidden border border-white hover:blur-[0px] hover:grayscale-0 hover:scale-100">

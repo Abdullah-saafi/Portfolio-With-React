@@ -21,7 +21,6 @@ function HeroSec() {
       >
         <source src="/hero-background.mp4" type="video/mp4" />
       </video>
-
       <aside className=" text-white  fixed top-70 md:top-[50%]  flex items-center px-8 z-[100]">
         <div className="social-links">
           <ol className="space-y-2">
@@ -48,8 +47,7 @@ function HeroSec() {
           </ol>
         </div>
       </aside>
-
-      <nav className="fixed flex top-0 left-0 bg-black justify-between items-center text-white md:px-5 md:px-15 py-8 w-full z-[100]">
+      <nav className="Navbar fixed flex top-0 left-0 bg-black justify-between items-center text-white md:px-5 md:px-15 py-8 w-full z-[100]">
         <div className="logo">
           <img
             src="img/my-logo.png"
@@ -95,7 +93,6 @@ function HeroSec() {
           </div>
         )}
       </nav>
-
       <div className="hero-text absolute pt-[15rem]  left-[5rem] md:pt-[20rem] md:left-[10rem] text-white z-[0]">
         <div className="name text-[var(--p-color)] font-[var(--title-font)] font-extrabold text-[1rem] md:text-[2rem]">
           <h6>I am Abdullah Saafi</h6>
@@ -126,7 +123,6 @@ function HeroSec() {
           </ol>
         </div>
       </div>
-
       <div
         className={`fixed top-0 right-0  w-64 bg-black bg-opacity-90 z-[105] p-6 flex flex-col space-y-4 transform transition-transform duration-300 ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
