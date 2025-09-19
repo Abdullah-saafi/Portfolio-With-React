@@ -24,7 +24,9 @@ const MyProjects = function () {
               />
             </div>
             <div className="card-text">
-              <h6 className="text-2xl font-bold">Single Page Website</h6>
+              <h6 className="text-2xl font-bold">
+                TODO APP <br /> Mini Project 01
+              </h6>
             </div>
           </div>
           <div className="square-card">

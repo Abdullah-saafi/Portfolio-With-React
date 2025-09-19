@@ -49,7 +49,7 @@ function HeroSec() {
         </div>
       </aside>
 
-      <nav className="fixed flex top-0 left-0 bg-black justify-between items-center text-white px-5 md:px-15 py-8 w-full z-[1000]">
+      <nav className="fixed flex top-0 left-0 bg-black justify-between items-center text-white md:px-5 md:px-15 py-8 w-full z-[100]">
         <div className="logo">
           <img
             src="img/my-logo.png"
@@ -139,7 +139,7 @@ function HeroSec() {
           <i className="bi bi-x-lg"></i>
         </div>
 
-        <ol className="flex flex-col font-semibold text-[0.9rem] font-title space-y-3 text-white mt-4">
+        <ol className="flex flex-col font-semibold text-[0.9rem] font-title space-y-3 text-white mt-4 z-[2000]">
           <li className="hover:text-red-500 transition-colors duration-500">
             <a href="#">Home</a>
           </li>
