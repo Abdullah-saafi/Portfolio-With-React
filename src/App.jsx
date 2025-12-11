@@ -1,3 +1,4 @@
+import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import CustomCursor from "./components/CustomeMouse";
 import AboutMe from "./components/AboutMe";
@@ -12,6 +13,7 @@ function App() {
   return (
     <div className="primeBg">
       <CustomCursor />
+      <Navbar />
       <Header />
       <AboutMe />
       <PersonalInfo />

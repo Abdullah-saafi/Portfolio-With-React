@@ -80,7 +80,7 @@ const PersonalInfo = () => {
       </div>
 
       {/* Main Content */}
-      <div className="mainCOntent relative z-10 w-[90%] flex flex-col justify-center">
+      <div className="mainCOntent relative z-8 w-[90%] flex flex-col justify-center">
         {/* Image */}
         <motion.div
           ref={imgRef} // Attach the ref here

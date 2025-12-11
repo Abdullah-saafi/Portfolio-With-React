@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
 import { useState, useRef } from "react";
+import { IoCall, IoMailSharp } from "react-icons/io5";
+
+import MovingbtnEff from "../components/MovingBtnEff";
+
 
 const FlipLink = ({ children, href }) => {
   return (
@@ -33,78 +37,12 @@ const FlipLink = ({ children, href }) => {
   );
 };
 
-// --- 2. MagneticButton (New Reusable Component) ---
-const MagneticButton = ({ text, href }) => {
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
 
-  // Handle the Magnetic Movement
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const xOffset = (e.clientX - rect.left - rect.width / 2) / 3; // Divided by 3 for stronger effect
-    const yOffset = (e.clientY - rect.top - rect.height / 2) / 3;
-    setOffset({ x: xOffset, y: yOffset });
-  };
-
-  const handleMouseLeave = () => {
-    setOffset({ x: 0, y: 0 });
-    setIsHovered(false);
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  return (
-    <motion.a
-      href={href}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
-      // Apply the magnetic movement to the button
-      animate={{ x: offset.x, y: offset.y }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="inline-block"
-    >
-      <motion.div
-        // Change background color on hover
-        animate={{
-          backgroundColor: isHovered ? "rgb(212,245,52)" : "", // Assuming black default, white hover
-          borderColor: isHovered ? "rgb(212,245,52)" : "rgb(255,255,255)",
-          color: isHovered ? "#000" : "#fff",
-        }}
-        transition={{ duration: 0.3 }}
-        className="px-8 py-4 rounded-full cursor-pointer flex items-center justify-center font-bold border border-transparent hover:border-black"
-      >
-        {/* Text Animation - Staggered Jump Effect */}
-        {text.split("").map((item, i) => (
-          <motion.span
-            key={i}
-            className="inline-block"
-            animate={{
-              // If hovered, jump up (-5) and back to 0. If not, stay at 0.
-              y: isHovered ? [-5, 0] : 0,
-            }}
-            transition={{
-              duration: 0.3,
-              delay: i * 0.02, // Stagger delay
-              ease: "easeOut",
-            }}
-          >
-            {item}
-          </motion.span>
-        ))}
-      </motion.div>
-    </motion.a >
-  );
-};
-
-// --- 3. Main Footer Component ---
 const Footer = () => {
   return (
     <footer className="primeTxt scondBg md:h-screen p-10 flex flex-col justify-between  ">
       <div className="NavLinks md:flex  justify-between text-center">
-        <div className="NavLinksMain flex flex-col md:flex-row gap-10 md:gap-20">
+        <div className="NavLinksMain flex flex-col md:flex-row gap-10 md:gap-10">
 
           {/* Services Column */}
           <div className="flex flex-col gap-4">
@@ -118,7 +56,7 @@ const Footer = () => {
           </div>
 
           {/* Resources Column */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col md:gap-4">
             <h3 className="text-sm font-semibold text-neutral-500 uppercase tracking-widest mb-2">
               Resources
             </h3>
@@ -137,32 +75,33 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="Contacts  mt-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4" // Use gap to separate the buttons
-          >
-            {/* Button 1: Phone */}
-            <MagneticButton
-              text="+923132388723"
-              href="tel:+923132388723"
-            />
+        <div className="Contacts mt-8 ">
+          <div className="Btn flex justify-center ">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="flex flex-col md:flex-row gap-1 md:gap-6"
+            >
+              <MovingbtnEff
+                text="+923132388723"
+                icon={<IoCall />}
+                link="#about-section"
+              />
+              <MovingbtnEff
+                text="Abdullahsaafipro@gmail.com"
+                icon={<IoMailSharp />}
+                link="#about-section"
+              />
 
-            {/* Button 2: Email */}
-            <MagneticButton
-              text="Abdullahsaafipro@gmail.com"
-              href="mailto:Abdullahsaafipro@gmail.com"
-            />
-
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
 
-      <div className="primeTxt md:text-[20rem] text-5xl my-10  text-center justify-self-end ">
-        <h1>Abdullah <span className="md:text-[2rem] text-sm ml-[-1rem] md:ml-[-6rem]">Saafi</span> </h1>
+      <div className="primeTxt md:text-[20vmin] text-5xl my-10  text-center justify-self-end ">
+        <h1>Abdullah <span className="md:text-[2rem] text-sm ml-[-1rem] md:ml-[-2rem]">Saafi</span> </h1>
       </div>
     </footer>
   );
