@@ -1,16 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-
 const MagneticPillButton = ({ text = "Click Me", icon, link = "#" }) => {
-  // 1. State for Magnetic Movement
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isButtonHovered, setIsButtonHovered] = useState(false);
-
-  // 2. State for Text Letter Animation
   const [hoveredWord, setHoveredWord] = useState(null);
 
-  // 3. Mouse Handlers
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const xOffset = (e.clientX - rect.left - rect.width / 2) / 5;
@@ -26,11 +21,9 @@ const MagneticPillButton = ({ text = "Click Me", icon, link = "#" }) => {
 
   const handleMouseEnter = () => {
     setIsButtonHovered(true);
-    // Trigger animation for the first word (0) on enter
     setHoveredWord(0);
   };
 
-  // 4. Letter Animation Logic
   const letterAnim = (content) => {
     if (typeof content === "string") {
       return content.split("").map((item, i) => (
@@ -48,7 +41,6 @@ const MagneticPillButton = ({ text = "Click Me", icon, link = "#" }) => {
         </motion.span>
       ));
     }
-    // If it's an icon/component, return as is (wrapped for consistency)
     return (
       <motion.span
         initial={{ y: 0, opacity: 0 }}
@@ -64,40 +56,40 @@ const MagneticPillButton = ({ text = "Click Me", icon, link = "#" }) => {
   };
 
   return (
-    <motion.button
+    <motion.div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
       animate={{ x: offset.x, y: offset.y }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="flex items-center my-2 sm:my-10  sm:mb-30 group"
+      className="flex items-center my-2 sm:my-10 sm:mb-30 group z-10 relative"
     >
-      {/* Text Pill Part */}
-      <a href={link} className="flex items-center gap-px">
-        <motion.div
-          animate={{
-            backgroundColor: isButtonHovered ? "rgb(231,231,231)" : "",
-            color: isButtonHovered ? "black" : "white" // Assuming scondTxt is blackish
-          }}
-          transition={{ duration: 0.3 }}
-          className="px-8 py-4 mainBg rounded-4xl cursor-pointer flex items-center font-bold border border-transparent"
-        >
-          {letterAnim(text)}
-        </motion.div>
 
-        {/* Icon Circle Part */}
+      <a href={link} className="flex items-center gap-px cursor-pointer">
+
         <motion.div
           animate={{
             backgroundColor: isButtonHovered ? "rgb(231,231,231)" : "",
             color: isButtonHovered ? "black" : "white"
           }}
           transition={{ duration: 0.3 }}
-          className="w-14 h-14 mainBg rounded-full cursor-pointer flex items-center justify-center text-[2rem] ml-1"
+          className="px-8 py-4 mainBg rounded-4xl flex items-center font-bold border border-transparent"
+        >
+          {letterAnim(text)}
+        </motion.div>
+
+        <motion.div
+          animate={{
+            backgroundColor: isButtonHovered ? "rgb(231,231,231)" : "",
+            color: isButtonHovered ? "black" : "white"
+          }}
+          transition={{ duration: 0.3 }}
+          className="w-14 h-14 mainBg rounded-full flex items-center justify-center text-[2rem] ml-1"
         >
           {letterAnim(icon)}
         </motion.div>
       </a>
-    </motion.button>
+    </motion.div>
   );
 };
 

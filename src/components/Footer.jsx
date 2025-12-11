@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
 import { IoCall, IoMailSharp } from "react-icons/io5";
 
 import MovingbtnEff from "../components/MovingBtnEff";
@@ -41,11 +40,10 @@ const FlipLink = ({ children, href }) => {
 const Footer = () => {
   return (
     <footer className="primeTxt scondBg md:h-screen p-10 flex flex-col justify-between  ">
-      <div className="NavLinks md:flex  justify-between text-center">
+      <div className="NavLinks md:flex  justify-between text-center md:p-10">
         <div className="NavLinksMain flex flex-col md:flex-row gap-10 md:gap-10">
 
-          {/* Services Column */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col md:gap-4">
             <h3 className="text-sm font-semibold text-neutral-500 uppercase tracking-widest mb-2">
               Services
             </h3>
@@ -55,7 +53,6 @@ const Footer = () => {
             <FlipLink href="#">Contact</FlipLink>
           </div>
 
-          {/* Resources Column */}
           <div className="flex flex-col md:gap-4">
             <h3 className="text-sm font-semibold text-neutral-500 uppercase tracking-widest mb-2">
               Resources
@@ -92,7 +89,7 @@ const Footer = () => {
               <MovingbtnEff
                 text="Abdullahsaafipro@gmail.com"
                 icon={<IoMailSharp />}
-                link="#about-section"
+                link="mailto:Abdullahsaafipro@gmail.com"
               />
 
             </motion.div>
