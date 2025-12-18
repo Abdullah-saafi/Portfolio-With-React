@@ -94,10 +94,9 @@ const MyJourney = () => {
   return (
     <motion.div
       ref={containerRef}
-      style={{ backgroundColor }} // Added color: textColor here
+      style={{ backgroundColor }}
       className="MainContent relative mx-auto py-40 text-center rounded-4xl overflow-hidden"
     >
-      {/* Snake Line in Background */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
         <SnakeLineEff />
       </div>
@@ -113,18 +112,14 @@ const MyJourney = () => {
         </h1>
       </motion.div>
 
-      {/* --- TIMELINE CONTAINER --- */}
       <div className="relative flex flex-col gap-16 px-5 md:px-0 max-w-7xl mx-auto primeTxt">
-        {/* 1. THE BACKGROUND TRACK (Faint Line) */}
         <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] md:-translate-x-1/2 bg-[oklch(0.39_0.01_0)]" />
 
-        {/* 2. THE PROGRESS FILLER (Solid Lime Line with Glow) */}
         <motion.div
           style={{
             scaleY: scrollYProgress,
             originY: 0,
           }}
-          // I updated the shadow color to match the lime line (rgb(212,245,52)) for a better glow effect
           className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] md:-translate-x-1/2 bg-[rgb(212,245,52)] shadow-[0_0_40px_rgb(212,245,52)] z-0"
         />
 
@@ -144,7 +139,7 @@ const MyJourney = () => {
                 stiffness: 50,
               }}
               className={`
-                relative z-10 flex flex-col py-10 md:w-[50%] mb-20 md:mb-70 md:pl-0
+                relative z-10 flex flex-col py-10 md:w-[50%] mb-20 md:mb-70 md:pl-0 
                 ${isLeft
                   ? "md:self-start md:text-right md:items-end md:pr-14"
                   : "md:self-end md:text-left md:items-start md:pl-14"
@@ -152,7 +147,7 @@ const MyJourney = () => {
                 text-left pl-8
               `}
             >
-              <h2 className="text-3xl md:text-5xl font-bold">{item.heading}</h2>
+              <h2 className="text-3xl md:text-5xl font-bold ">{item.heading}</h2>
               <h3 className="text-xl md:text-2xl mt-4 opacity-60">
                 {item.title}
               </h3>

@@ -105,7 +105,7 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="flex flex-col md:flex-row gap-1 md:gap-6"
+              className="flex flex-col md:flex-row gap-1 md:gap-6 text-sm"
             >
               <MovingbtnEff
                 text="+923132388723"

@@ -6,10 +6,10 @@ import MovingbtnEff from "../components/MovingBtnEff";
 
 const MyWork = () => {
   const cardsData = [
-    { id: 1, title: "Educational", desc: "Next.js & React powerful combination", img: "/imgs/BaitusslamWeb.png" },
-    { id: 2, title: "Services", desc: "Complete robust Design System", img: "/imgs/AcRepairWeb.png" },
-    { id: 3, title: "Professional", desc: "Modern E-commerce Solutions", img: "/imgs/currencyConverter.png" },
-    { id: 4, title: "Personal", desc: "Interactive User Dashboards", img: "/imgs/Portfolio.png" },
+    { id: 1, title: "Educational", desc: "Next.js & React powerful combination", img: "/imgs/BaitusslamWeb.png", link: "https://baitussalam-website-using-react.vercel.app/" },
+    { id: 2, title: "Services", desc: "React powerful combination", img: "/imgs/Helnurzor.png", link: "https://hel-nou-zur.vercel.app/" },
+    { id: 3, title: "Services", desc: "Complete robust Design System", img: "/imgs/AcRepairWeb.png", link: "https://acrepairserviceswebsite.vercel.app/" },
+    { id: 4, title: "Professional", desc: "Modern E-commerce Solutions", img: "/imgs/currencyConverter.png", link: "https://realtime-currency-converter-js-app-virid.vercel.app/" },
   ];
 
   const textContainerVariants = {
@@ -31,7 +31,12 @@ const MyWork = () => {
   };
 
 
-
+  const handleCardClick = (card, e) => {
+    e.preventDefault();
+    if (card.link && card.link.trim() !== "") {
+      window.open(card.link, "_blank");
+    }
+  };
 
   return (
     <div className="MainContent px-[5%] sm:px-[10%] py-30">
@@ -43,38 +48,42 @@ const MyWork = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {cardsData.map((card) => (
-          <motion.div
+          <div
             key={card.id}
-            className="relative h-[25rem] sm:h-[35rem] w-full overflow-hidden cursor-pointer rounded-xl group"
-            initial="rest"
-            whileHover="hover"
+            onClick={(e) => handleCardClick(card, e)}
+            className="block"
           >
-            <div className="absolute top-4 left-4 z-30 mainBg opacity-70 px-3 py-1 rounded-full text-sm text-gray-800 font-medium shadow-sm">
-              {card.title}
-            </div>
-            <img
-              src={card.img}
-              alt={card.title}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-black/60 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <motion.div
-              className="absolute inset-0 flex flex-col justify-center items-center p-4 text-center z-20"
-              variants={textContainerVariants}
+              className="relative h-[25rem] sm:h-[35rem] w-full overflow-hidden cursor-pointer rounded-xl group"
+              initial="rest"
+              whileHover="hover"
             >
-              <h3 className="text-2xl md:text-3xl font-bold mainTxt flex flex-wrap justify-center gap-[0.4rem]">
-                {card.desc.split(" ").map((word, i) => (
-                  <motion.span
-                    key={i}
-                    variants={wordVariants}
-                    className="inline-block"
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </h3>
+              <div className="absolute top-4 left-4 z-30 mainBg opacity-70 px-3 py-1 rounded-full text-sm text-gray-800 font-medium shadow-sm">
+                {card.title}
+              </div>
+
+              <img
+                src={card.img}
+                alt={card.title}
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-0 bg-black/60 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+              <motion.div
+                className="absolute inset-0 flex flex-col justify-center items-center p-4 text-center z-20"
+                variants={textContainerVariants}
+              >
+                <h3 className="text-2xl md:text-3xl font-bold mainTxt flex flex-wrap justify-center gap-[0.4rem]">
+                  {card.desc.split(" ").map((word, i) => (
+                    <motion.span key={i} variants={wordVariants}>
+                      {word}
+                    </motion.span>
+                  ))}
+                </h3>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         ))}
       </div>
       <div className="Btn flex justify-center pt-20">
