@@ -2,11 +2,17 @@ import { motion, } from "framer-motion";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { IoLogoLinkedin, } from "react-icons/io";
 import { IoLogoWhatsapp } from "react-icons/io5";
-
 import { FaGithub } from "react-icons/fa6";
 
 
 const Header = () => {
+
+  const socialLinks = [
+    { path: "https://github.com/Abdullah-saafi", lable: <FaGithub /> },
+    { path: "/tel:03132388723", lable: <IoLogoWhatsapp /> },
+    { path: "https://www.linkedin.com/in/abdullah-saafi-641a5a305?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", lable: <IoLogoLinkedin /> },
+  ];
+
 
   const noShake = {
     rotate: [0, 0, 0, 0],
@@ -65,37 +71,25 @@ const Header = () => {
           <div className="w-1.5 h-1.5 bg-gray-700 rounded-full relative z-10"></div>
           <div className="absolute top-0 bottom-0 w-[.6px] bg-gray-700 left-1/2 -translate-x-1/2"></div>
         </div>
-        <div className="contact text-2xl mt-70 sm:mt-1  ">
-          <motion.div
-            initial={noShake}
-            whileHover={shake}
-            transition={{
-              repeat: Infinity,
-              repeatType: "twice", duration: 0.6, ease: "easeInOut"
-            }}
-            className="cursor-pointer"
-          >
-            <IoLogoLinkedin />
-          </motion.div>
-
-          <motion.div
-            initial={noShake}
-            whileHover={shake}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            className="cursor-pointer py-3 sm:py-7"
-          >
-            <IoLogoWhatsapp />
-          </motion.div>
-
-          <motion.div
-            initial={noShake}
-            whileHover={shake}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            className="cursor-pointer "
-          >
-            <FaGithub />
-          </motion.div>
-
+        <div className="contact text-2xl mt-70 sm:mt-1">
+          {socialLinks.map((link, index) => (
+            <motion.div
+              key={index}
+              initial={noShake}
+              whileHover={shake}
+              transition={{
+                repeat: Infinity,
+                repeatType: "twice",
+                duration: 0.6,
+                ease: "easeInOut"
+              }}
+              className="cursor-pointer py-2 sm:py-3"
+            >
+              <a href={link.path} target="_blank" rel="noopener noreferrer">
+                {link.lable}
+              </a>
+            </motion.div>
+          ))}
         </div>
       </aside >
     </div >

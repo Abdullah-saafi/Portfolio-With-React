@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import MovingbtnEff from "../components/MovingBtnEff";
 
 
-const MyWork = () => {
+const MyWorks = () => {
   const cardsData = [
     { id: 1, title: "Educational", desc: "Next.js & React powerful combination", img: "/imgs/BaitusslamWeb.png" },
     { id: 2, title: "Services", desc: "Complete robust Design System", img: "/imgs/AcRepairWeb.png" },
@@ -77,22 +77,8 @@ const MyWork = () => {
           </motion.div>
         ))}
       </div>
-      <div className="Btn flex justify-center pt-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-        >
-          <MovingbtnEff
-            text="Explore Projects"
-            icon={<FaLocationArrow />}
-            link="/works"
-          />
-        </motion.div>
-      </div>
     </div>
   );
 };
 
-export default MyWork;
+export default MyWorks;

@@ -2,17 +2,26 @@ import { useState, useEffect } from "react";
 import { easeInOut, motion, scale, AnimatePresence } from "framer-motion";
 import { IoMdClose, IoIosMenu } from "react-icons/io";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [hoveredWord, setHoveredWord] = useState(null);
   const [menuIcon, setMenuIcon] = useState(true);
   const [sideBar, setSideBar] = useState(false);
-  const [showMenuIcon, setShowMenuIcon] = useState(false); // 1. New State for visibility
+  const [showMenuIcon, setShowMenuIcon] = useState(false);
 
-  // 2. Logic to detect scroll
+  const navLinks = [
+    { path: "/", lable: "Home" },
+    { path: "/about-me", lable: "About" },
+    { path: "/works", lable: "Works" },
+    { path: "/contact", lable: "Contact" },
+  ];
+
+
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 200) { // Change 200 to however far you want to scroll
+      if (window.scrollY > 200) {
         setShowMenuIcon(true);
       } else {
         setShowMenuIcon(false);
@@ -22,8 +31,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-
 
   const handleMenuIcon = () => {
     setSideBar(true);
@@ -37,7 +44,8 @@ const Navbar = () => {
 
   const scrollBtn = () => {
     setSideBar(true);
-  }
+  };
+
   const navWordEff = (word, wordIndex) => {
     return (
       <span
@@ -70,7 +78,6 @@ const Navbar = () => {
     <div className="Maincontent">
       <div className="Navbar flex pl-5 sm:pl-10 pr-10 md:pr-20 py-10 justify-between items-center z-10 relative">
         {showMenuIcon && (
-
           <div className={`
           fixed right-2  md:right-15 z-30 
           h-15 w-15 rounded-full 
@@ -85,26 +92,23 @@ const Navbar = () => {
           </div>
         )}
         <div className="logo  ">
-          <a href="#">
-            {" "}
+          <NavLink to="/">
             <img
               className="h-12"
               src="/imgs/Adobe Express - file.png"
               alt="Logo"
             />
-          </a>
+          </NavLink>
         </div>
         <nav className=" hidden sm:block">
           <ul>
-            <li className="inline-block cursor-pointer">
-              {navWordEff("Home", 0)}
-            </li>
-            <li className="inline-block cursor-pointer mx-5">
-              {navWordEff("About", 1)}
-            </li>
-            <li className="inline-block cursor-pointer">
-              {navWordEff("Works", 2)}
-            </li>
+            {navLinks.map((item, index) => (
+              <li key={index} className={`inline-block cursor-pointer gap-4 px-2 `}>
+                <NavLink to={item.path}>
+                  {navWordEff(item.lable, index)}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
         {menuIcon && (
@@ -140,21 +144,16 @@ const Navbar = () => {
               <li className="self-end mb-15 hover:rotate-90 transition-all duration-300">
                 <IoMdClose onClick={handleCloseIcon} />
               </li>
-              <li className="inline-block cursor-pointer">
-                {navWordEff("Home", 0)}
-              </li>
-              <li className="inline-block cursor-pointer  py-5">
-                {navWordEff("About", 1)}
-              </li>
-              <li className="inline-block cursor-pointer">
-                {navWordEff("Works", 2)}
-              </li>
-              <li className="inline-block cursor-pointer py-5">
-                {navWordEff("Contact", 3)}
-              </li>
+              {navLinks.map((item, index) => (
+                <li key={index} className="inline-block cursor-pointer py-5">
+                  <NavLink to={item.path} onClick={handleCloseIcon}>
+                    {navWordEff(item.lable, index)}
+                  </NavLink>
+                </li>
+              ))}
             </motion.ul>
             <motion.div
-              iinitial={{ x: 300, opacity: 0 }} // coming from right
+              initial={{ x: 300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{
                 delay: 0.2,

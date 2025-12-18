@@ -1,27 +1,23 @@
-import Navbar from "./components/Navbar";
-import Header from "./components/Header";
-import CustomCursor from "./components/CustomeMouse";
-import AboutMe from "./components/AboutMe";
-import PersonalInfo from "./components/PersonalInfo";
-import MyWork from "./components/MyWork"
-import MyJourney from "./components/MyJourney";
-import ExtraInfo from "./components/ExtraInfo"
-import Footer from "./components/Footer"
+import { Routes, Route } from "react-router-dom";
+import DefaultLayout from "./components/Layout"
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
+import AboutMePage from "./pages/AboutMePage";
+import MyWorks from "./pages/MyWorks";
+
+
 function App() {
-
-
   return (
-    <div className="primeBg">
-      <CustomCursor />
-      <Navbar />
-      <Header />
-      <AboutMe />
-      <PersonalInfo />
-      <MyWork />
-      <MyJourney />
-      <ExtraInfo />
-      <Footer />
-    </div>
+    <DefaultLayout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about-me" element={<AboutMePage />} />
+        <Route path="/works" element={<MyWorks />} />
+
+
+      </Routes>
+    </DefaultLayout>
   )
 }
 

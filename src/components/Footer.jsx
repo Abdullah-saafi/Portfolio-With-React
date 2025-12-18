@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 import { IoCall, IoMailSharp } from "react-icons/io5";
 
 import MovingbtnEff from "../components/MovingBtnEff";
+import { NavLink } from "react-router-dom";
 
 
 const FlipLink = ({ children, href }) => {
+
   return (
     <motion.a
       initial="initial"
@@ -38,6 +40,19 @@ const FlipLink = ({ children, href }) => {
 
 
 const Footer = () => {
+  const navLinks = [
+    { path: "/", lable: "Home" },
+    { path: "/about-me", lable: "About" },
+    { path: "/works", lable: "Works" },
+    { path: "/contact", lable: "Contact" },
+  ];
+  const socialLinks = [
+    { path: "mailto:Abdullahsaafipro@gmail.com", lable: "Email" },
+    { path: "https://www.linkedin.com/in/abdullah-saafi-641a5a305?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", lable: "LINKEDIN" },
+    { path: "tel:03132388723", lable: "WHATSAPP" },
+    { path: "https://github.com/Abdullah-saafi", lable: "GITHUB" },
+  ];
+
   return (
     <footer className="primeTxt scondBg md:h-screen p-10 flex flex-col justify-between  ">
       <div className="NavLinks md:flex  justify-between text-center md:p-10">
@@ -47,23 +62,34 @@ const Footer = () => {
             <h3 className="text-sm font-semibold text-neutral-500 uppercase tracking-widest mb-2">
               Services
             </h3>
-            <FlipLink href="#">Home</FlipLink>
-            <FlipLink href="#">Work</FlipLink>
-            <FlipLink href="#">About</FlipLink>
-            <FlipLink href="#">Contact</FlipLink>
+            <ul className="space-y-3">
+              {navLinks.map((items, i) => (
+                <li key={i} >
+                  <NavLink to={items.path}>
+                    <FlipLink >{items.lable}</FlipLink>
+
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="flex flex-col md:gap-4">
             <h3 className="text-sm font-semibold text-neutral-500 uppercase tracking-widest mb-2">
               Resources
             </h3>
-            <FlipLink href="#">Email</FlipLink>
-            <FlipLink href="#">LinkedIn</FlipLink>
-            <FlipLink href="#">WhatsApp</FlipLink>
-            <FlipLink href="#">Github</FlipLink>
+            <ul className="space-y-3">
+              {socialLinks.map((items, i) => (
+                <li key={i} >
+                  <NavLink to={items.path} target="_blank">
+                    <FlipLink >{items.lable}</FlipLink>
+
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Time Column */}
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-semibold text-neutral-500 uppercase tracking-widest mb-2">
               Local Time
