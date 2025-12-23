@@ -10,8 +10,7 @@ const DefaultLayout = ({ children }) => {
       {children}
       <Footer />
     </div>
-  )
-}
-
+  );
+};
 
 export default DefaultLayout;

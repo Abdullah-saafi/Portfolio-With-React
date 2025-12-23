@@ -1,15 +1,38 @@
 import { useState } from "react";
 import { FaLocationArrow } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import MovingbtnEff from "../components/MovingBtnEff";
-
+import BtnAnima from "../animations/ButtonAnimations";
 
 const MyWork = () => {
   const cardsData = [
-    { id: 1, title: "Educational", desc: "Next.js & React powerful combination", img: "/imgs/BaitusslamWeb.png", link: "https://baitussalam-website-using-react.vercel.app/" },
-    { id: 2, title: "Services", desc: "React powerful combination", img: "/imgs/Helnurzor.png", link: "https://hel-nou-zur.vercel.app/" },
-    { id: 3, title: "Services", desc: "Complete robust Design System", img: "/imgs/AcRepairWeb.png", link: "https://acrepairserviceswebsite.vercel.app/" },
-    { id: 4, title: "Professional", desc: "Modern E-commerce Solutions", img: "/imgs/currencyConverter.png", link: "https://realtime-currency-converter-js-app-virid.vercel.app/" },
+    {
+      id: 1,
+      title: "Educational",
+      desc: "Next.js & React powerful combination",
+      img: "/imgs/BaitusslamWeb.png",
+      link: "https://baitussalam-website-using-react.vercel.app/",
+    },
+    {
+      id: 2,
+      title: "Services",
+      desc: "React powerful combination",
+      img: "/imgs/Helnurzor.png",
+      link: "https://hel-nou-zur.vercel.app/",
+    },
+    {
+      id: 3,
+      title: "Services",
+      desc: "Complete robust Design System",
+      img: "/imgs/AcRepairWeb.png",
+      link: "https://acrepairserviceswebsite.vercel.app/",
+    },
+    {
+      id: 4,
+      title: "Professional",
+      desc: "Modern E-commerce Solutions",
+      img: "/imgs/currencyConverter.png",
+      link: "https://realtime-currency-converter-js-app-virid.vercel.app/",
+    },
   ];
 
   const textContainerVariants = {
@@ -21,15 +44,14 @@ const MyWork = () => {
     rest: {
       opacity: 0,
       y: 20,
-      transition: { type: "spring", stiffness: 300, damping: 20 }
+      transition: { type: "spring", stiffness: 300, damping: 20 },
     },
     hover: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", stiffness: 300, damping: 20 }
+      transition: { type: "spring", stiffness: 300, damping: 20 },
     },
   };
-
 
   const handleCardClick = (card, e) => {
     e.preventDefault();
@@ -42,7 +64,8 @@ const MyWork = () => {
     <div className="MainContent px-[5%] sm:px-[10%] py-30">
       <div className="heading text-2xl md:text-4xl font-bold my-10">
         <h1>
-          Discover my latest work and creative <br /> solutions that bring ideas to life
+          Discover my latest work and creative <br /> solutions that bring ideas
+          to life
         </h1>
       </div>
 
@@ -86,19 +109,12 @@ const MyWork = () => {
           </div>
         ))}
       </div>
-      <div className="Btn flex justify-center pt-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-        >
-          <MovingbtnEff
-            text="Explore Projects"
-            icon={<FaLocationArrow />}
-            link="/works"
-          />
-        </motion.div>
+      <div className="btn flex justify-center">
+        <BtnAnima
+          link="/works"
+          title="ExploreProjects"
+          Icon={FaLocationArrow}
+        />
       </div>
     </div>
   );

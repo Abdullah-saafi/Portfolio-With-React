@@ -17,8 +17,6 @@ const Navbar = () => {
     { path: "/contact", lable: "Contact" },
   ];
 
-
-
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 200) {
@@ -78,14 +76,16 @@ const Navbar = () => {
     <div className="Maincontent">
       <div className="Navbar flex pl-5 sm:pl-10 pr-10 md:pr-20 py-10 justify-between items-center z-10 relative">
         {showMenuIcon && (
-          <div className={`
+          <div
+            className={`
           fixed right-2  md:right-15 z-30 
           h-15 w-15 rounded-full 
           flex justify-center items-center 
           text-4xl bg-gray-300 text-black 
           shadow-lg
           transition-all duration-300 ease-in-out
-        `}>
+        `}
+          >
             <button onClick={scrollBtn}>
               <HiOutlineMenuAlt1 />
             </button>
@@ -103,7 +103,10 @@ const Navbar = () => {
         <nav className=" hidden sm:block">
           <ul>
             {navLinks.map((item, index) => (
-              <li key={index} className={`inline-block cursor-pointer gap-4 px-2 `}>
+              <li
+                key={index}
+                className={`inline-block cursor-pointer gap-4 px-2 `}
+              >
                 <NavLink to={item.path}>
                   {navWordEff(item.lable, index)}
                 </NavLink>
